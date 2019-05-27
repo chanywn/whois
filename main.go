@@ -15,7 +15,7 @@ import (
 var fileSuccFile *os.File
 var wgSuccFileFile sync.Mutex
 var bf int
-var maxBf int = 20
+var maxBf int = 10
 
 func main() {
 	bf = 0;
@@ -53,10 +53,12 @@ func waitingForBf() {
 }
 
 func match(domain string) {
+	domain = strings.ToLower(domain)
 	result, err := whois.Whois(domain)
 	if err != nil {
 		// fmt.Println(err)
 	}
+	// fmt.Println(result)
 	reg := regexp.MustCompile("No match for")
 	re := reg.FindAllString(result, -1)
 	if re == nil { 
